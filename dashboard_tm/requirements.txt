@@ -1,0 +1,15 @@
+paramiko==3.3.1
+pandas==2.1.1
+numpy==1.26.0
+requests==2.31.0
+cx-Oracle==8.3.0
+Flask==2.3.2
+Flask-Dance==7.0.0
+Flask-DebugToolbar==0.13.1
+Flask-Login==0.6.2
+Flask-Migrate==4.0.4
+Flask-OAuth==0.12
+Flask-OAuthlib==0.9.4
+Flask-Session==0.8.0
+Flask-SQLAlchemy==3.0.5
+Flask-WTF==1.1.1
