@@ -1,0 +1,48 @@
+version: '3'
+services:
+  spark-master:
+    image: bitnami/spark:latest
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+    ports:
+      - "8181:8080"
+      - "7077:7077"
+    networks:
+      - spark-network
+    volumes :
+      - .scripts:/scripts
+      - /tmp/data_temp/:/data_input
+    deploy:
+      resources:
+        limits:
+          memory: 4G      # Limit memory to 4GB
+          cpus: "2.0"     # Allocate 2 CPUs
+        reservations:
+          memory: 2G      # Reserve 2GB memory for the container
+          cpus: "1.0"     # Reserve 1 CPU for the container
+    
+
+  spark-worker:
+    image: bitnami/spark:latest
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    networks:
+      - spark-network
+    deploy:
+      resources:
+        limits:
+          memory: 4G      # Limit memory to 4GB
+          cpus: "2.0"     # Allocate 2 CPUs
+        reservations:
+          memory: 2G      # Reserve 2GB memory for the container
+          cpus: "1.0"     # Reserve 1 CPU for the container
+
+networks:
+  spark-network:
+    driver: bridge
